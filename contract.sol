@@ -1,17 +1,11 @@
-pragma solidity 0.5.1;
+pragma solidity 0.8.13;
+import "MathLib.sol";
 
 contract MyContract {
-    string value;
 
-    constructor() public {
-        value = "My Default Value";
-    }
+    uint256 public value;
 
-    function get() public view returns(string) {
-        return value;
-    }
-
-    function set(_value) public {
-        value = _value
+    function calculate(uint _value1, uint _value2) public {
+        value = Math.divide(_value1, _value2);
     }
 }
