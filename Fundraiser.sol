@@ -19,4 +19,11 @@ contract Fundraiser {
         donations[msg.sender] += msg.value;
         raisedAmount += msg.value;
    }
+
+   function withdrawDonations() external {
+        require(msg.sender == owner, "Only the owner can withdraw donations");
+        require(raisedAmount >= targetAmount, "The project campaign did not reach the target amount");
+        require(block.timestamp > finishTime, "The campaign is not over yet");
+        payable(owner).transfer(raisedAmount);
+   }
 }
