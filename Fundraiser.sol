@@ -13,4 +13,10 @@ contract Fundraiser {
         targetAmount = _targetAmount;
         owner = msg.sender;
    }
+
+   receive() external payable {
+        require(block.timestamp < finishTime, "Fundraiser Campaign is over");
+        donations[msg.sender] += msg.value;
+        raisedAmount += msg.value;
+   }
 }
