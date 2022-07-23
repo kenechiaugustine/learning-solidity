@@ -26,4 +26,13 @@ contract Fundraiser {
         require(block.timestamp > finishTime, "The campaign is not over yet");
         payable(owner).transfer(raisedAmount);
    }
+
+   function refund() external {
+        require(block.timestamp > finishTime, "The campaign is not over yet");
+        require(raisedAmount < targetAmount, "The project campaign reached the target amount");
+        require(donations[msg.sender] > 0, "You have not donated to this campaign");
+        uint256 toRefund = donations[msg.sender];
+        donations[msg.sender] = 0;
+        payable(msg.sender).transfer(toRefund);
+   }
 }
